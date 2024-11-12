@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize";
-import FlowmeterAirBaku from "../models/flowmeter_air_baku.js"
+import FlowmeterAirReservoir from "../models/flowmeter_air_reservoir.js";
 
 export const findAll = async (req, res) => {
     try {
-        const result = await FlowmeterAirBaku.findAll({
+        const result = await FlowmeterAirReservoir.findAll({
             order: [['timestamp', 'DESC']]
         });
         return res.status(200).json(result)
@@ -31,7 +31,7 @@ export const create = async (req, res) => {
             });
         }
 
-        const duplicateRecord = await FlowmeterAirBaku.findOne({
+        const duplicateRecord = await FlowmeterAirReservoir.findOne({
             where: {
                 [Sequelize.Op.and]: [
                     Sequelize.where(Sequelize.fn('DATE', Sequelize.col('timestamp')), '=', inputTime.toISOString().split('T')[0]), // Mengecek hari yang sama
@@ -44,7 +44,7 @@ export const create = async (req, res) => {
             return res.status(400).json({ error: 'Laporan untuk hari dan jam ini sudah ada' });
         }
 
-        const lastRecord = await FlowmeterAirBaku.findOne({
+        const lastRecord = await FlowmeterAirReservoir.findOne({
             order: [['timestamp', 'DESC']]
         });
 
@@ -55,7 +55,7 @@ export const create = async (req, res) => {
         }
         
         if (!lastRecord) {
-            const newRecord = await FlowmeterAirBaku.create({
+            const newRecord = await FlowmeterAirReservoir.create({
                 parameterA: 0,
                 parameterB,
                 parameterF: null,
@@ -67,7 +67,7 @@ export const create = async (req, res) => {
             return res.status(201).json(newRecord);
         }
 
-        const previousRecord = await FlowmeterAirBaku.findOne({
+        const previousRecord = await FlowmeterAirReservoir.findOne({
             where: {
                 timestamp: {
                     [Sequelize.Op.lte]: new Date(inputTime - 2 * 60 * 60 * 1000),
@@ -89,7 +89,7 @@ export const create = async (req, res) => {
         const C = (parameterB - parameterA) / timeDifferenceHours;
         const D = (C * 1000) / (60 * 60 * timeDifferenceHours);
 
-        const newRecord = await FlowmeterAirBaku.create({
+        const newRecord = await FlowmeterAirReservoir.create({
             parameterA,
             parameterB,
             parameterF: previousRecord.timestamp,

@@ -1,38 +1,35 @@
 import { DataTypes } from "sequelize";
 import { DB } from "../config.js";
 
-const FlowmeterAirBaku = DB.define('FlowmeterAirBaku', {
-    parameterA: {
-        type: DataTypes.INTEGER,
+const PompaAirDistribusi = DB.define('PompaAirDistribusi', {
+    pompa_operasi: {
+        type: DataTypes.ENUM('PU 301 A', 'PU 301 B', 'PU 301 C'),
         allowNull: false,
     },
-    parameterB: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    parameterF: {
-        type: DataTypes.DATE,
-        allowNull: true,
-    },
-    parameterG: {
-        type: DataTypes.DATE,
-        allowNull: true,
-    },
-    resultC: {
+    frekuensi_inverter: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
-    resultD: {
+    ampere_meter: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    output_power: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    pressure_gauge: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
     timestamp: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: DataTypes.NOW,
     },
 }, {
-    tableName: 'flowmeter_air_baku',
+    tableName: 'pompa_air_baku',
     timestamps: false, // true : Jika ingin menggunakan createdAt dan updatedAt
 });
 
-export default FlowmeterAirBaku
+export default PompaAirDistribusi;

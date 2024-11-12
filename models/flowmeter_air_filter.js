@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { DB } from "../config.js";
 
-const FlowmeterAirBaku = DB.define('FlowmeterAirBaku', {
+const FlowmeterAirFilter = DB.define('FlowmeterAirFilter', {
     parameterA: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -31,8 +31,8 @@ const FlowmeterAirBaku = DB.define('FlowmeterAirBaku', {
         allowNull: false,
     },
 }, {
-    tableName: 'flowmeter_air_baku',
+    tableName: 'flowmeter_air_filter',
     timestamps: false, // true : Jika ingin menggunakan createdAt dan updatedAt
 });
 
-export default FlowmeterAirBaku
+export default FlowmeterAirFilter

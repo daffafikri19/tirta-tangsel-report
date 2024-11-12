@@ -1,9 +1,9 @@
 import express from "express"
-import { fetchData, recordData } from "../controllers/flowmeter_air_baku.js";
+import { findAll, create } from "../controllers/flowmeter_air_baku.js";
 
 const route = express.Router();
 
-route.get('/api/record/flowmeter-air-baku/all', fetchData)
-route.post('/api/record/flowmeter-air-baku', recordData)
+route.get('/api/report/flowmeter-air-baku/findAll', findAll)
+route.post('/api/report/flowmeter-air-baku/create', create)
 
 export default route
