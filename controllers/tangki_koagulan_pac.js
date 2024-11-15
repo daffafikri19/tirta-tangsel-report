@@ -1,17 +1,18 @@
 import { Sequelize } from "sequelize";
-import PompaAirBaku from "../models/pompa_air_baku.js";
+import TangkiKoagulanPAC from "../models/tangki_koagulan_pac.js";
 
 export const findAll = async (req, res) => {
     try {
-        const result = await PompaAirBaku.findAll({
+        const result = await TangkiKoagulanPAC.findAll({
             order: [['timestamp', 'DESC']]
-        });
+        })
+
         return res.status(200).json(result)
     } catch (error) {
         console.error(error);
         res.status(500).json({
-            message: 'Terjadi kesalahan saat mendapatkan data',
-            instance: 'PompaAirBaku-findAll',
+            message: 'Terjadi kesalahan saat menambahkan data',
+            instance: 'TangkiKoagulanPAC-findAll',
             error: error,
             errorMessage: error.message
         });
@@ -19,16 +20,8 @@ export const findAll = async (req, res) => {
 }
 
 export const create = async (req, res) => {
-    const { pompa_operasi, frekuensi_inverter, ampere_meter, output_power, pressure_gauge, timestamp } = req.body;
+    const { stokOpname, tinggiStok, konversiVolumeA, konversiVolumeB, timestamp } = req.body;
     try {
-
-        const validateMachine = ['PU 101 A', 'PU 101 B', 'PU 101 C']
-        if (!validateMachine.includes(pompa_operasi)) {
-            return res.status(400).json({
-                message: 'Jenis pompa mesin tidak valid',
-            });
-        }
-
         const inputTime = new Date(timestamp);
         const inputHour = inputTime.getUTCHours();
 
@@ -38,7 +31,7 @@ export const create = async (req, res) => {
             });
         }
 
-        const duplicateRecord = await PompaAirBaku.findOne({
+        const duplicateRecord = await TangkiKoagulanPAC.findOne({
             where: {
                 [Sequelize.Op.and]: [
                     Sequelize.where(Sequelize.fn('DATE', Sequelize.col('timestamp')), '=', inputTime.toISOString().split('T')[0]), // Mengecek hari yang sama
@@ -51,7 +44,7 @@ export const create = async (req, res) => {
             return res.status(400).json({ message: 'Laporan untuk hari dan jam ini sudah ada' });
         }
 
-        const lastRecord = await PompaAirBaku.findOne({
+        const lastRecord = await TangkiKoagulanPAC.findOne({
             order: [['timestamp', 'DESC']]
         });
 
@@ -61,21 +54,24 @@ export const create = async (req, res) => {
             });
         }
 
-        const newRecord = await PompaAirBaku.create({
-            pompa_operasi,
-            frekuensi_inverter,
-            ampere_meter,
-            output_power,
-            pressure_gauge,
-            timestamp: timestamp || new Date(),
-        });
 
-        return res.status(201).json(newRecord);
+        const pemakaianPer2Jam = konversiVolumeA - konversiVolumeB;
+
+        const newRecord = await TangkiKoagulanPAC.create({
+            stokOpname,
+            tinggiStok,
+            konversiVolumeA,
+            konversiVolumeB,
+            pemakaianPer2Jam,
+            timestamp: inputTime
+        });
+        
+        return res.status(201).json(newRecord)
     } catch (error) {
         console.error(error);
         res.status(500).json({
             message: 'Terjadi kesalahan saat menambahkan data',
-            instance: 'PompaAirBaku-create',
+            instance: 'TangkiKoagulanPAC-create',
             error: error,
             errorMessage: error.message
         });

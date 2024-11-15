@@ -25,7 +25,7 @@ export const create = async (req, res) => {
         const validateMachine = ['PU 301 A', 'PU 301 B', 'PU 301 C']
         if (!validateMachine.includes(pompa_operasi)) {
             return res.status(400).json({
-                error: 'Jenis pompa mesin tidak valid',
+                message: 'Jenis pompa mesin tidak valid',
             });
         }
 
@@ -34,7 +34,7 @@ export const create = async (req, res) => {
 
         if (inputHour % 2 !== 0) {
             return res.status(400).json({
-                error: 'Laporan tidak dapat dilakukan pada jam ini'
+                message: 'Laporan tidak dapat dilakukan pada jam ini'
             });
         }
 
@@ -48,7 +48,7 @@ export const create = async (req, res) => {
         });
 
         if (duplicateRecord) {
-            return res.status(400).json({ error: 'Laporan untuk hari dan jam ini sudah ada' });
+            return res.status(400).json({ message: 'Laporan untuk hari dan jam ini sudah ada' });
         }
 
         const lastRecord = await PompaAirDistribusi.findOne({
@@ -57,7 +57,7 @@ export const create = async (req, res) => {
 
         if (lastRecord && inputTime <= lastRecord.timestamp) {
             return res.status(400).json({
-                error: 'Laporan baru harus memiliki timestamp lebih besar dari laporan terakhir'
+                message: 'Laporan baru harus memiliki timestamp lebih besar dari laporan terakhir'
             });
         }
 
