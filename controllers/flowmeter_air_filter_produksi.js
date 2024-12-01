@@ -1,17 +1,52 @@
 import { Sequelize } from "sequelize";
-import FlowmeterAirFilter from "../models/flowmeter_air_filter.js";
+import FlowmeterAirFilterProduksi from "../models/flowmeter_air_filter_produksi.js";
 
 export const findAll = async (req, res) => {
     try {
-        const result = await FlowmeterAirFilter.findAll({
-            order: [['timestamp', 'DESC']]
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 10;
+        const offset = (page - 1) * limit;
+        const { startDate, endDate } = req.query;
+
+        let dateFilter = {};
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            end.setUTCHours(23, 59, 59, 999); // Ubah endDate ke akhir hari
+            dateFilter = {
+                timestamp: {
+                    [Op.between]: [start, end]
+                }
+            };
+        }
+
+        const { count, rows } = await FlowmeterAirFilterProduksi.findAndCountAll({
+            where: dateFilter,
+            order: [['timestamp', 'DESC']],
+            limit: limit,
+            offset: offset
         });
-        return res.status(200).json(result)
+        
+        const totalPages = Math.ceil(count / limit);
+
+        const response = {
+            data: rows,
+            pagination: {
+                totalItems: count,
+                currentPage: page,
+                totalPages: totalPages,
+                itemsPerPage: limit,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1
+            }
+        };
+
+        return res.status(200).json(response);
     } catch (error) {
         console.error(error);
         res.status(500).json({
             message: 'Terjadi kesalahan saat mendapatkan data',
-            instance: 'FlowmeterAirFilter-findAll',
+            instance: 'FlowmeterAirFilterProduksi-findAll',
             error: error,
             errorMessage: error.message
         });
@@ -30,7 +65,7 @@ export const create = async (req, res) => {
             });
         }
 
-        const duplicateRecord = await FlowmeterAirFilter.findOne({
+        const duplicateRecord = await FlowmeterAirFilterProduksi.findOne({
             where: {
                 [Sequelize.Op.and]: [
                     Sequelize.where(Sequelize.fn('DATE', Sequelize.col('timestamp')), '=', inputTime.toISOString().split('T')[0]), // Mengecek hari yang sama
@@ -43,7 +78,7 @@ export const create = async (req, res) => {
             return res.status(400).json({ message: 'Laporan untuk hari dan jam ini sudah ada' });
         }
 
-        const lastRecord = await FlowmeterAirFilter.findOne({
+        const lastRecord = await FlowmeterAirFilterProduksi.findOne({
             order: [['timestamp', 'DESC']]
         });
 
@@ -55,7 +90,7 @@ export const create = async (req, res) => {
         }
 
         if (!lastRecord) {
-            const newRecord = await FlowmeterAirFilter.create({
+            const newRecord = await FlowmeterAirFilterProduksi.create({
                 parameterA: 0,
                 parameterB,
                 parameterF: null,
@@ -67,7 +102,7 @@ export const create = async (req, res) => {
             return res.status(201).json(newRecord);
         }
 
-        const previousRecord = await FlowmeterAirFilter.findOne({
+        const previousRecord = await FlowmeterAirFilterProduksi.findOne({
             where: {
                 timestamp: {
                     [Sequelize.Op.lte]: new Date(inputTime - 2 * 60 * 60 * 1000),
@@ -89,7 +124,7 @@ export const create = async (req, res) => {
         const C = (parameterB - parameterA) / timeDifferenceHours;
         const D = (C * 1000) / (60 * 60 * timeDifferenceHours);
 
-        const newRecord = await FlowmeterAirFilter.create({
+        const newRecord = await FlowmeterAirFilterProduksi.create({
             parameterA,
             parameterB,
             parameterF: previousRecord.timestamp,
@@ -103,7 +138,7 @@ export const create = async (req, res) => {
         console.error(error);
         res.status(500).json({
             message: 'Terjadi kesalahan saat menambahkan data',
-            instance: 'FlowmeterAirFilter-create',
+            instance: 'FlowmeterAirFilterProduksi-create',
             error: error,
             errorMessage: error.message
         });

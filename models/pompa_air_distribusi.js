@@ -22,6 +22,10 @@ const PompaAirDistribusi = DB.define('PompaAirDistribusi', {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
+    pressure_pipa: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
     timestamp: {
         type: DataTypes.DATE,
         allowNull: false,

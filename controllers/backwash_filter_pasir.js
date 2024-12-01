@@ -1,12 +1,47 @@
-import { Sequelize } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 import BackwashFilterPasir from "../models/backwash_filter_pasir.js";
 
 export const findAll = async (req, res) => {
     try {
-        const result = await BackwashFilterPasir.findAll({
-            order: [['timestamp', 'DESC']]
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 10;
+        const offset = (page - 1) * limit;
+        const { startDate, endDate } = req.query;
+
+        let dateFilter = {};
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            end.setUTCHours(23, 59, 59, 999); // Ubah endDate ke akhir hari
+            dateFilter = {
+                timestamp: {
+                    [Op.between]: [start, end]
+                }
+            };
+        }
+
+        const { count, rows } = await BackwashFilterPasir.findAndCountAll({
+            where: dateFilter,
+            order: [['timestamp', 'DESC']],
+            limit: limit,
+            offset: offset
         });
-        return res.status(200).json(result)
+        
+        const totalPages = Math.ceil(count / limit);
+
+        const response = {
+            data: rows,
+            pagination: {
+                totalItems: count,
+                currentPage: page,
+                totalPages: totalPages,
+                itemsPerPage: limit,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1
+            }
+        };
+
+        return res.status(200).json(response);
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -65,7 +100,7 @@ export const create = async (req, res) => {
             return res.status(400).json({ message: "Pilihan Air Blower tidak valid" });
         }
 
-        if(!validOptions.includes(pompaBackwash)) {
+        if (!validOptions.includes(pompaBackwash)) {
             return res.status(400).json({ message: "Pilihan Pompa Backwash tidak valid" });
         }
 

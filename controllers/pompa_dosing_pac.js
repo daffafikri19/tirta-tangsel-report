@@ -3,11 +3,45 @@ import PompaDosingPAC from "../models/pompa_dosing_pac.js";
 
 export const findAll = async (req, res) => {
     try {
-        const result = await PompaDosingPAC.findAll({
-            order: [['timestamp', 'DESC']]
-        })
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 10;
+        const offset = (page - 1) * limit;
+        const { startDate, endDate } = req.query;
 
-        return res.status(200).json(result)
+        let dateFilter = {};
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            end.setUTCHours(23, 59, 59, 999); // Ubah endDate ke akhir hari
+            dateFilter = {
+                timestamp: {
+                    [Op.between]: [start, end]
+                }
+            };
+        }
+
+        const { count, rows } = await PompaDosingPAC.findAndCountAll({
+            where: dateFilter,
+            order: [['timestamp', 'DESC']],
+            limit: limit,
+            offset: offset
+        });
+        
+        const totalPages = Math.ceil(count / limit);
+
+        const response = {
+            data: rows,
+            pagination: {
+                totalItems: count,
+                currentPage: page,
+                totalPages: totalPages,
+                itemsPerPage: limit,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1
+            }
+        };
+
+        return res.status(200).json(response);
     } catch (error) {
         console.error(error);
         res.status(500).json({

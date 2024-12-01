@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tirta Tangsel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body class="dark:bg-gray-900">
+    <div>
+        <nav
+            class="w-full bg-white fixed h-18 top-0 left-0 border-gray-200 dark:bg-gray-900 dark:border-gray-700 py-2 px-2">
+            <form class="max-w-2xl mx-auto">
+                <label for="default-search"
+                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search"
+                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Cari jenis laporan" required />
+                    <button type="submit"
+                        class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cari</button>
+                </div>
+            </form>
+        </nav>
+
+        <section class="px-3 py-3 md:px-5 pt-20">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-6 lg:gap-8 text-center">
+
+                <a href="./reports/flowmeter-air-baku/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Flowmeter Air Baku
+                    </h5>
+                </a>
+
+                <a href="./reports/pompa-air-baku/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Pompa Air Baku</h5>
+                </a>
+
+                <a href="./reports/flowmeter-air-filter-produksi/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Flowmeter Air Filter
+                        (produksi)</h5>
+                </a>
+
+                <a href="./reports/flowmeter-air-backwash/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Flowmeter Air
+                        Backwash</h5>
+                </a>
+
+                <a href="./reports/flowmeter-air-reservoir/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Flowmeter Air
+                        Reservoir</h5>
+                </a>
+
+                <a href="./reports/reservoir/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Reservoir</h5>
+                </a>
+
+                <a href="./reports/pompa-air-distribusi/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Pompa Air Distribusi
+                    </h5>
+                </a>
+
+                <a href="./reports/water-treatment-plant/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Water Treatment
+                        Plant</h5>
+                </a>
+
+                <!-- wip flowmeter air reservoir, flowmeter air backwash, water treatment plant -->
+
+                <a href="./reports/backwash-filter-pasir/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Backwash Filter
+                        Pasir</h5>
+                </a>
+
+                <a href="./reports/tangki-koagulan-pac/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Tangki Koagulan PAC
+                    </h5>
+                </a>
+
+                <a href="./reports/pompa-dosing-pac/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Pompa Dosing
+                        PAC</h5>
+                </a>
+
+                <a href="./reports/pompa-dosing-soda/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Pompa Dosing Soda
+                        Ash</h5>
+                </a>
+
+                <a href="./reports/pre-chlorine/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Pre Chlorine</h5>
+                </a>
+
+                <a href="./reports/post-chlorine/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Post Chlorine</h5>
+                </a>
+
+                <a href="./reports/tangki-chlorine/index.html"
+                    class="w-full h-full min-h-[75px] p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 flex items-center justify-center">
+
+                    <h5 class="mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white">Tangki Chlorine</h5>
+                </a>
+
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</body>
+
+</html>
