@@ -22,9 +22,9 @@
         <form class="mx-auto h-full">
 
             <div class="mb-5">
-                <label for="pompa-operasi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipe
+                <label for="pompa_operasi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipe
                     Pompa Operasi</label>
-                <select id="pompa-operasi"
+                <select id="pompa_operasi"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected hidden>pilih tipe pompa operasi</option>
                     <option value="PU 101 A">PU 101 A</option>
@@ -39,7 +39,7 @@
                     <div class="absolute text-black dark:text-white inset-y-0 end-3 top-0 flex items-center ps-3 pointer-events-none">
                         Hz
                     </div>
-                    <input type="number" id="frekuensi_inverter"
+                    <input type="number" id="frekuensi_inverter" step="0.0001"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <div class="absolute text-black dark:text-white inset-y-0 end-3 top-0 flex items-center ps-3 pointer-events-none">
                         A
                     </div>
-                    <input type="number" id="ampere_meter"
+                    <input type="number" id="ampere_meter" step="0.0001"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     <div class="absolute text-black dark:text-white inset-y-0 end-3 top-0 flex items-center ps-3 pointer-events-none">
                         Kwh
                     </div>
-                    <input type="number" id="output_power"
+                    <input type="number" id="output_power" step="0.0001"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     <div class="absolute text-black dark:text-white inset-y-0 end-3 top-0 flex items-center ps-3 pointer-events-none">
                         Bar
                     </div>
-                    <input type="number" id="pressure_gauge"
+                    <input type="number" id="pressure_gauge" step="0.0001"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                 </div>
             </div>
@@ -170,7 +170,7 @@
             $("form").on("submit", function (e) {
                 e.preventDefault();
 
-                const pompa_operasi = $('#pompa-operasi').val();
+                const pompa_operasi = $('#pompa_operasi').val();
                 const frekuensi_inverter = $('#frekuensi_inverter').val();
                 const ampere_meter = $('#ampere_meter').val();
                 const output_power = $('#output_power').val();
@@ -186,7 +186,7 @@
                         ampere_meter: ampere_meter,
                         output_power: output_power,
                         pressure_gauge: pressure_gauge,
-                        timestamp: devMode ? "2024-11-30T02:23:12Z" : timestampserver
+                        timestamp: devMode ? "2024-11-30T14:00:00Z" : timestampserver
                     },
                     success: function (response) {
                         showSuccessToast("Berhasil membuat laporan");

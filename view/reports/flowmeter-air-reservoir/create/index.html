@@ -21,11 +21,14 @@
 
         <form class="mx-auto h-full">
             <div class="mb-5">
-                <label for="parameterB" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angka
-                    Mesin</label>
-                <input type="number" id="parameterB"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required />
+                <label for="parameterB" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Totalizer Air</label>
+                <div class="relative">
+                    <div class="absolute text-black dark:text-white inset-y-0 end-3 top-0 flex items-center ps-3 pointer-events-none">
+                        m3
+                    </div>
+                    <input type="number" id="parameterB" step="0.01"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                </div>
             </div>
 
             <div class="w-full flex items-center justify-end">
@@ -134,11 +137,13 @@
                     contentType: "application/x-www-form-urlencoded",
                     data: {
                         parameterB: parameterB,
-                        timestamp: devMode ? "2024-11-30T06:05:12Z" : timestampserver
+                        timestamp: devMode ? "2024-11-30T14:00:00Z" : timestampserver
                     },
                     success: function (response) {
                         showSuccessToast("Berhasil membuat laporan");
                         $("form")[0].reset();
+
+                        // window.location.href = '/reports/flowmeter-air-reservoir/'
                     },
                     error: function (err) {
                         showErrorToast(err.responseJSON?.message);

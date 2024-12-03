@@ -16,8 +16,7 @@
 
             <div class="w-full flex items-center justify-end">
                 <a href="./create/index.html"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Buat
-                    Laporan</a>
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah Data</a>
             </div>
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -33,16 +32,16 @@
                                 Tanggal
                             </th>
                             <th scope="col" class="px-4 py-2">
-                                Totalizer A
+                                Stan Meter Awal
                             </th>
                             <th scope="col" class="px-4 py-2">
-                                Totalizer B
+                                Stan Meter Akhir
                             </th>
-                            <th scope="col" class="px-4 py-2">
+                            <!-- <th scope="col" class="px-4 py-2">
                                 Hasil C
-                            </th>
+                            </th> -->
                             <th scope="col" class="px-4 py-2">
-                                Hasil D
+                                Rata-rata per 2 Jam lpd
                             </th>
                         </tr>
                     </thead>
@@ -116,7 +115,6 @@
                                     <td class="px-5 py-3">${formatDate(item.timestamp) || "-"}</td>
                                     <td class="px-5 py-3">${item.parameterA || "0"}</td>
                                     <td class="px-5 py-3">${item.parameterB || "0"}</td>
-                                    <td class="px-5 py-3">${item.resultC || "0"}</td>
                                     <td class="px-5 py-3">${item.resultD || "0"}</td>
                                 </tr>
                                 `;

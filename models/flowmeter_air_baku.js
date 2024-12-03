@@ -19,11 +19,11 @@ const FlowmeterAirBaku = DB.define('FlowmeterAirBaku', {
         allowNull: true,
     },
     resultC: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     resultD: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     timestamp: {

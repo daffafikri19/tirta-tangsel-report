@@ -113,7 +113,7 @@ export const create = async (req, res) => {
 
         if (!previousRecord) {
             return res.status(400).json({
-                message: 'Data sebelumnya (parameter A) tidak ditemukan dalam rentang waktu yang diharapkan',
+                message: 'Data sebelumnya tidak ditemukan dalam rentang waktu yang diharapkan',
             });
         }
 
@@ -121,8 +121,8 @@ export const create = async (req, res) => {
         const parameterG = inputTime;
 
         const timeDifferenceHours = (parameterG - previousRecord.timestamp) / 3600000; // (F - G)
-        const C = (parameterB - parameterA) / timeDifferenceHours;
-        const D = (C * 1000) / (60 * 60 * timeDifferenceHours);
+        const C = (parameterB - parameterA) / 2;
+        const D = (C * 1000) / (60 * 60);
 
         const newRecord = await FlowmeterAirFilterProduksi.create({
             parameterA,
@@ -130,7 +130,7 @@ export const create = async (req, res) => {
             parameterF: previousRecord.timestamp,
             parameterG,
             resultC: C,
-            resultD: D,
+            resultD: (Math.round(D * 100) / 100).toFixed(2),
             timestamp: parameterG,
         });
         return res.status(201).json(newRecord);

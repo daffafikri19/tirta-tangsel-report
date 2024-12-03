@@ -72,7 +72,8 @@ export const create = async (req, res) => {
                     Sequelize.where(Sequelize.fn('DATE', Sequelize.col('timestamp')), '=', inputTime.toISOString().split('T')[0]), // Mengecek hari yang sama
                     Sequelize.where(Sequelize.fn('HOUR', Sequelize.col('timestamp')), '=', inputTime.getUTCHours()) // Mengecek jam yang sama
                 ]
-            }
+            },
+            raw: true
         });
 
         if (duplicateRecord) {
@@ -80,7 +81,8 @@ export const create = async (req, res) => {
         }
 
         const lastRecord = await FlowmeterAirReservoir.findOne({
-            order: [['timestamp', 'DESC']]
+            order: [['timestamp', 'DESC']],
+            raw: true
         });
 
         if (lastRecord && inputTime <= lastRecord.timestamp) {
@@ -109,20 +111,20 @@ export const create = async (req, res) => {
                 },
             },
             order: [['timestamp', 'DESC']],
+            raw: true
         });
 
         if (!previousRecord) {
             return res.status(400).json({
-                message: 'Data sebelumnya (parameter A) tidak ditemukan dalam rentang waktu yang diharapkan',
+                message: 'Data sebelumnya tidak ditemukan dalam rentang waktu yang diharapkan',
             });
         }
 
         const parameterA = previousRecord.parameterB || 0;
         const parameterG = inputTime;
 
-        const timeDifferenceHours = (parameterG - previousRecord.timestamp) / 3600000; // (F - G)
-        const C = (parameterB - parameterA) / timeDifferenceHours;
-        const D = (C * 1000) / (60 * 60 * timeDifferenceHours);
+        const C = (parameterB - parameterA) / 2;
+        const D = (C * 1000) / (60 * 60);
 
         const newRecord = await FlowmeterAirReservoir.create({
             parameterA,
@@ -130,7 +132,7 @@ export const create = async (req, res) => {
             parameterF: previousRecord.timestamp,
             parameterG,
             resultC: C,
-            resultD: D,
+            resultD: (Math.round(D * 100) / 100).toFixed(2),
             timestamp: parameterG,
         });
 

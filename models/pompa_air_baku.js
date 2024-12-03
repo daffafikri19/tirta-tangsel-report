@@ -7,19 +7,19 @@ const PompaAirBaku = DB.define('PompaAirBaku', {
         allowNull: false,
     },
     frekuensi_inverter: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     ampere_meter: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     output_power: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     pressure_gauge: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     timestamp: {

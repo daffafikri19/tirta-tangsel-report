@@ -9,7 +9,6 @@ import FlowmeterAirReservoirRoute from "./routes/flowmeter_air_reservoir.js"
 import ReservoirRoute from "./routes/reservoir.js"
 import PompaAirDistribusiRoute from "./routes/pompa_air_distribusi.js";
 import WaterTreatmentPlantRoute from "./routes/water_treatment_plant.js"
-import FlowmeterAirFilterRoute from "./routes/flowmeter_air_filter.js"
 import BackwashFilterPasirRoute from "./routes/backwash_filter_pasir.js"
 import TangkiKoagulanPACRoute from "./routes/tangki_koagulan_pac.js"
 import PompaDosingPACRoute from "./routes/pompa_dosing_pac.js"
@@ -36,7 +35,6 @@ app.use(FlowmeterAirReservoirRoute);
 app.use(ReservoirRoute);
 app.use(PompaAirDistribusiRoute);
 app.use(WaterTreatmentPlantRoute);
-app.use(FlowmeterAirFilterRoute);
 app.use(BackwashFilterPasirRoute);
 app.use(TangkiKoagulanPACRoute);
 app.use(PompaDosingPACRoute);

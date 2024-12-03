@@ -19,11 +19,11 @@ const FlowmeterAirFilterProduksi = DB.define('FlowmeterAirFilterProduksi', {
         allowNull: true,
     },
     resultC: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     resultD: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     timestamp: {

@@ -3,11 +3,11 @@ import { DB } from "../config.js";
 
 const FlowmeterAirReservoir = DB.define('FlowmeterAirReservoir', {
     parameterA: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     parameterB: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     parameterF: {
@@ -19,11 +19,11 @@ const FlowmeterAirReservoir = DB.define('FlowmeterAirReservoir', {
         allowNull: true,
     },
     resultC: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     resultD: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
     },
     timestamp: {

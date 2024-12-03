@@ -8,15 +8,15 @@ const PompaDosingPAC = DB.define('PompaDosingPAC', {
         allowNull: false,
     },
     strokePompa: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     literPerJam: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     realisasiDosis: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
     timestamp: {

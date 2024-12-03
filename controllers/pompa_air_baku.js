@@ -24,7 +24,8 @@ export const findAll = async (req, res) => {
             where: dateFilter,
             order: [['timestamp', 'DESC']],
             limit: limit,
-            offset: offset
+            offset: offset,
+            raw: true
         });
         
         const totalPages = Math.ceil(count / limit);
@@ -79,7 +80,8 @@ export const create = async (req, res) => {
                     Sequelize.where(Sequelize.fn('DATE', Sequelize.col('timestamp')), '=', inputTime.toISOString().split('T')[0]), // Mengecek hari yang sama
                     Sequelize.where(Sequelize.fn('HOUR', Sequelize.col('timestamp')), '=', inputTime.getUTCHours()) // Mengecek jam yang sama
                 ]
-            }
+            },
+            raw: true
         });
 
         if (duplicateRecord) {
@@ -87,7 +89,8 @@ export const create = async (req, res) => {
         }
 
         const lastRecord = await PompaAirBaku.findOne({
-            order: [['timestamp', 'DESC']]
+            order: [['timestamp', 'DESC']],
+            raw: true
         });
 
         if (lastRecord && inputTime <= lastRecord.timestamp) {

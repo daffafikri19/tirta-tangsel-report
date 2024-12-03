@@ -113,7 +113,7 @@ export const create = async (req, res) => {
 
         if (!previousRecord) {
             return res.status(400).json({
-                message: 'Data sebelumnya (parameter A) tidak ditemukan dalam rentang waktu yang diharapkan',
+                message: 'Data sebelumnya tidak ditemukan dalam rentang waktu yang diharapkan',
             });
         }
 
